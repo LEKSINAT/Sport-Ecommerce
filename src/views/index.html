@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sport Ecommerce Hub</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body data-page="home">
+    <div class="page-shell">
+      <aside class="sidebar">
+        <p class="eyebrow">Sport Ecommerce</p>
+        <h1>Control room for the store.</h1>
+        <p class="sidebar-copy">
+          A lightweight frontend shell for your backend modules, with quick access
+          to auth, catalog, inventory, orders, and payments.
+        </p>
+        <nav class="nav-links">
+          <a href="/">Overview</a>
+          <a href="/auth">Auth</a>
+          <a href="/catalog">Catalog</a>
+          <a href="/inventory">Inventory</a>
+          <a href="/orders">Orders</a>
+          <a href="/payments">Payments</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <section class="hero-card">
+          <p class="eyebrow">Backend + View Layer</p>
+          <h2>Simple frontend pages that match your API structure.</h2>
+          <p>
+            These pages are intentionally small, so you can keep building backend
+            logic while still having a presentable UI shell to demo or extend.
+          </p>
+
+          <div class="quick-grid">
+            <a class="feature-card" href="/auth">
+              <span>01</span>
+              <strong>Auth portal</strong>
+              <p>Register, login, and user session flow.</p>
+            </a>
+            <a class="feature-card" href="/catalog">
+              <span>02</span>
+              <strong>Catalog board</strong>
+              <p>Browse and manage products.</p>
+            </a>
+            <a class="feature-card" href="/inventory">
+              <span>03</span>
+              <strong>Stock desk</strong>
+              <p>Track quantities and warehouse updates.</p>
+            </a>
+            <a class="feature-card" href="/orders">
+              <span>04</span>
+              <strong>Order lane</strong>
+              <p>Monitor order creation and statuses.</p>
+            </a>
+            <a class="feature-card" href="/payments">
+              <span>05</span>
+              <strong>Payment panel</strong>
+              <p>Review payment requests and verification.</p>
+            </a>
+          </div>
+        </section>
+
+        <section class="info-grid">
+          <article class="panel">
+            <h3>Available APIs</h3>
+            <ul class="api-list">
+              <li><code>POST /api/auth/register</code></li>
+              <li><code>POST /api/auth/login</code></li>
+              <li><code>GET /api/catalog</code></li>
+              <li><code>PUT /api/inventory</code></li>
+              <li><code>POST /api/orders</code></li>
+              <li><code>POST /api/payments</code></li>
+            </ul>
+          </article>
+
+          <article class="panel accent-panel">
+            <h3>Next step</h3>
+            <p>
+              Replace the demo cards and forms with real API calls once you add a
+              package setup and client-side logic.
+            </p>
+            <button class="ghost-button" data-action="ping-health">Ping Health API</button>
+            <pre id="health-output" class="output-box">Waiting for request...</pre>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="/assets/app.js"></script>
+  </body>
+</html>
