@@ -1,55 +1,65 @@
+import express, { type Express } from "express";
 import path from "node:path";
 
-import express from "express";
 
-import authRoutes from "./routes/auth.routes";
-import catalogRoutes from "./routes/catalog.routes";
-import inventoryRoutes from "./routes/inventory.routes";
-import orderRoutes from "./routes/order.routes";
-import paymentRoutes from "./routes/payment.routes";
-import { errorHandler, notFoundHandler } from "./core/errors";
-import { requestLogger } from "./core/middleware";
+import { environment } from "./Backend/Config/environment";
 
-const app = express();
-const viewsPath = path.join(process.cwd(), "src", "views");
 
+import { errorHandler, notFoundHandler } from "./Backend/Core/errors";
+import { requestLogger } from "./Backend/Core/middleware";
+import { registerAuthModule } from "./Backend/Modules/auth.module";
+
+const app: Express = express();
+
+app.disable("x-powered-by");
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use((_req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (_req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
+
+  next();
+});
 app.use(requestLogger);
-app.use("/assets", express.static(path.join(viewsPath, "assets")));
+
+// Serve a dev-friendly frontend entry.
+// Note: keep this CommonJS-safe (no import.meta usage).
+const indexHtmlPath = path.resolve(process.cwd(), "index.html");
+
+// Static file serving so the browser can load frontend assets.
+app.use(express.static(process.cwd()));
+app.use(express.static(path.resolve(process.cwd(), "src")));
+
+app.get(["/", "/login", "/register"], (_req, res) => {
+  res.sendFile(indexHtmlPath);
+});
 
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+
+  res.status(200).json({
+    status: "ok",
+    service: "sport-ecommerce",
+    env: environment.nodeEnv,
+    timestamp: new Date().toISOString(),
+  });
 });
 
-app.get("/", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "index.html"));
+
+
+app.get("/api", (_req, res) => {
+  res.status(200).json({
+    name: "sport-ecommerce-api",
+    version: "1.0.0",
+  });
 });
 
-app.get("/auth", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "auth.html"));
-});
-
-app.get("/catalog", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "catalog.html"));
-});
-
-app.get("/inventory", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "inventory.html"));
-});
-
-app.get("/orders", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "orders.html"));
-});
-
-app.get("/payments", (_req, res) => {
-  res.sendFile(path.join(viewsPath, "payments.html"));
-});
-
-app.use("/api/auth", authRoutes);
-app.use("/api/catalog", catalogRoutes);
-app.use("/api/inventory", inventoryRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/payments", paymentRoutes);
+registerAuthModule(app);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
