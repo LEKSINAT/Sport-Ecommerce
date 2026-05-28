@@ -8,7 +8,7 @@ const node_path_1 = __importDefault(require("node:path"));
 const environment_1 = require("./Backend/Config/environment");
 const errors_1 = require("./Backend/Core/errors");
 const middleware_1 = require("./Backend/Core/middleware");
-const auth_module_1 = require("./Backend/Modules/auth.module");
+const app_module_1 = require("./Backend/Modules/app.module");
 const app = (0, express_1.default)();
 app.disable("x-powered-by");
 app.use(express_1.default.json());
@@ -47,7 +47,7 @@ app.get("/api", (_req, res) => {
         version: "1.0.0",
     });
 });
-(0, auth_module_1.registerAuthModule)(app);
+(0, app_module_1.registerModules)(app);
 app.use(errors_1.notFoundHandler);
 app.use(errors_1.errorHandler);
 exports.default = app;

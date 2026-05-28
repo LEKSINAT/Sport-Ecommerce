@@ -7,7 +7,7 @@ import { environment } from "./Backend/Config/environment";
 
 import { errorHandler, notFoundHandler } from "./Backend/Core/errors";
 import { requestLogger } from "./Backend/Core/middleware";
-import { registerAuthModule } from "./Backend/Modules/auth.module";
+import { registerModules } from "./Backend/Modules/app.module";
 
 const app: Express = express();
 
@@ -59,7 +59,7 @@ app.get("/api", (_req, res) => {
   });
 });
 
-registerAuthModule(app);
+registerModules(app);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
