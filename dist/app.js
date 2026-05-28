@@ -27,9 +27,11 @@ app.use(middleware_1.requestLogger);
 // Serve a dev-friendly frontend entry.
 // Note: keep this CommonJS-safe (no import.meta usage).
 const indexHtmlPath = node_path_1.default.resolve(process.cwd(), "index.html");
+const uploadsPath = node_path_1.default.resolve(process.cwd(), "uploads");
 // Static file serving so the browser can load frontend assets.
 app.use(express_1.default.static(process.cwd()));
 app.use(express_1.default.static(node_path_1.default.resolve(process.cwd(), "src")));
+app.use("/uploads", express_1.default.static(uploadsPath));
 app.get(["/", "/login", "/register"], (_req, res) => {
     res.sendFile(indexHtmlPath);
 });
