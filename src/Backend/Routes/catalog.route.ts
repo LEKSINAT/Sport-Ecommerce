@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import {
+<<<<<<< HEAD
   createAdminProduct,
   createFavoriteProduct,
   createProductPurchase,
@@ -33,5 +34,51 @@ catalogRouter.post("/products/:productId/buy", createProductPurchase);
 catalogRouter.post("/products/:productId/favorites", createFavoriteProduct);
 catalogRouter.delete("/products/:productId/favorites", deleteFavoriteProduct);
 catalogRouter.get("/users/:userId/favorites", getFavoriteProducts);
+=======
+  createProductByAdminOrStaff,
+  deleteProductByAdminOrStaff,
+  getProductByCategory,
+  getProductBySlugOrId,
+  listProducts,
+  searchProducts,
+  updateProductByAdminOrStaff,
+} from "../Controllers/catalog.controller";
+
+import { requireAuth, requireRoles } from "../Core/guards";
+import { productImageUpload } from "../Core/middleware";
+
+const catalogRouter = Router();
+
+catalogRouter.get("/", listProducts);
+
+// Public reads
+catalogRouter.get("/search", searchProducts);
+catalogRouter.get("/category/:categoryId", getProductByCategory);
+catalogRouter.get("/:slugOrId", getProductBySlugOrId);
+
+
+// Admin & Staff CRUD
+catalogRouter.post(
+  "/",
+  requireAuth,
+  requireRoles("Admin", "Staff"),
+  productImageUpload.single("image"),
+  createProductByAdminOrStaff,
+);
+catalogRouter.put(
+  "/:id",
+  requireAuth,
+  requireRoles("Admin", "Staff"),
+  productImageUpload.single("image"),
+  updateProductByAdminOrStaff,
+);
+catalogRouter.delete(
+  "/:id",
+  requireAuth,
+  requireRoles("Admin", "Staff"),
+  deleteProductByAdminOrStaff,
+);
+
+>>>>>>> 691aaadec9880ae159688a8378a773650dc96168
 
 export default catalogRouter;
