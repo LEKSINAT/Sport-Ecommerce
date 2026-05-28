@@ -4,9 +4,11 @@ exports.registerModules = void 0;
 const auth_module_1 = require("./auth.module");
 const category_module_1 = require("./category.module");
 const catalog_module_1 = require("./catalog.module");
+const user_module_1 = require("./user.module");
 const registerModules = (app) => {
     (0, auth_module_1.registerAuthModule)(app);
     (0, category_module_1.registerCategoryModule)(app);
     (0, catalog_module_1.registerCatalogModule)(app);
+    (0, user_module_1.registerUserModule)(app);
 };
 exports.registerModules = registerModules;
