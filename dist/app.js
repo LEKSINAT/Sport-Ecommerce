@@ -32,7 +32,7 @@ const uploadsPath = node_path_1.default.resolve(process.cwd(), "uploads");
 app.use(express_1.default.static(process.cwd()));
 app.use(express_1.default.static(node_path_1.default.resolve(process.cwd(), "src")));
 app.use("/uploads", express_1.default.static(uploadsPath));
-app.get(["/", "/login", "/register"], (_req, res) => {
+app.get(["/", "/login", "/register", "/users", "/profile"], (_req, res) => {
     res.sendFile(indexHtmlPath);
 });
 app.get("/health", (_req, res) => {
