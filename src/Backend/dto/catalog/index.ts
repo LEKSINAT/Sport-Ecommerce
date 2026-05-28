@@ -25,16 +25,6 @@ export interface ProductSummaryDto {
   name: string;
   slug: string;
   description: string | null;
-<<<<<<< HEAD
-  price: number;
-  imageUrl: string | null;
-  category: string | null;
-}
-
-export interface ProductDetailDto extends ProductSummaryDto {
-  variants: ProductVariantDto[];
-  availableQuantity: number;
-=======
   basePrice: number;
   price: number;
   imageUrl: string | null;
@@ -47,53 +37,10 @@ export interface ProductDetailDto extends ProductSummaryDto {
     average: number;
     count: number;
   };
->>>>>>> 691aaadec9880ae159688a8378a773650dc96168
 }
 
 export interface ProductVariantDto {
   id: number;
-<<<<<<< HEAD
-  sku: string;
-  name: string | null;
-  price: number;
-  attributes: unknown;
-}
-
-export interface ProductListQueryDto {
-  search?: string;
-  category?: string;
-}
-
-export interface BuyProductDto {
-  userId: number;
-  quantity?: number;
-  productVariantId?: number;
-  addressId?: number | null;
-}
-
-export interface FavoriteProductDto {
-  userId: number;
-}
-
-export interface AdminCreateProductDto {
-  name: string;
-  description?: string | null;
-  price: number;
-  imageUrl?: string | null;
-  category?: string | null;
-  categoryId?: number | null;
-  isActive?: boolean;
-}
-
-export interface AdminUpdateProductDto {
-  name?: string;
-  description?: string | null;
-  price?: number;
-  imageUrl?: string | null;
-  category?: string | null;
-  categoryId?: number | null;
-  isActive?: boolean;
-=======
   productId: number;
   sku: string;
   name: string | null;
@@ -125,6 +72,9 @@ export interface CreateProductDto {
   categoryId?: string | number | null;
   imageUrl?: string;
   status?: string;
+  quantity?: string | number;
+  sku?: string;
+  variantName?: string;
 }
 
 export interface UpdateProductDto {
@@ -136,5 +86,4 @@ export interface UpdateProductDto {
   imageUrl?: string | null;
   isActive?: string | boolean;
   status?: string;
->>>>>>> 691aaadec9880ae159688a8378a773650dc96168
 }

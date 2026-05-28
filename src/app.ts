@@ -7,13 +7,7 @@ import { environment } from "./Backend/Config/environment";
 
 import { errorHandler, notFoundHandler } from "./Backend/Core/errors";
 import { requestLogger } from "./Backend/Core/middleware";
-<<<<<<< HEAD
-import { registerAdminModule } from "./Backend/Modules/admin.module";
-import { registerAuthModule } from "./Backend/Modules/auth.module";
-import { registerCatalogModule } from "./Backend/Modules/catalog.module";
-=======
 import { registerModules } from "./Backend/Modules/app.module";
->>>>>>> 691aaadec9880ae159688a8378a773650dc96168
 
 const app: Express = express();
 
@@ -67,13 +61,7 @@ app.get("/api", (_req, res) => {
   });
 });
 
-<<<<<<< HEAD
-registerAuthModule(app);
-registerCatalogModule(app);
-registerAdminModule(app);
-=======
 registerModules(app);
->>>>>>> 691aaadec9880ae159688a8378a773650dc96168
 
 app.use(notFoundHandler);
 app.use(errorHandler);
